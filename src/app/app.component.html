@@ -1,0 +1,118 @@
+
+<div id="clients">
+
+  <section class="header">
+    <div class="head">
+      <p class="title">Clientes</p>
+      <button class="btn-add" (click)="openFormClient(content)">
+        <fa-icon class="icon" [icon]="plusIcon"></fa-icon>
+        Adicionar
+      </button>
+    </div>
+      <input class="searchInput" placeholder="Busca por Razão Social" (keyup)='filterTable($event.target.value)'>
+  </section>
+
+  <section class="table">
+    <ngx-datatable 
+      [columnMode]="'force'"    
+      [rows]="filteredRows" 
+      [columns]="columns"
+      [headerHeight]="40"
+      [footerHeight]="40"
+      [rowHeight]="40"
+      [scrollbarH]="true"
+    >
+    </ngx-datatable>
+  </section>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Adicionar Cliente</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="clientForm">
+        <div class="form-group">
+          <div class="row form-cliente">
+
+            <div class="col-sm-12">
+              <label for="companyName">Razão Social</label>
+              <div class="input-group">
+                <input 
+                formControlName="companyName"
+                class="form-control">
+              </div>
+            </div>
+          
+            <div class="col-sm-12">
+              <label for="cnpj">CNPJ</label>
+              <div class="input-group">
+                <input 
+                  formControlName="cnpj" 
+                  class="form-control"
+                  maxlength="18"
+                  mask="00.000.000/0000-00">
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <label for="fantasyName">Nome Fantasia</label>
+              <div class="input-group">
+                <input formControlName="fantasyName" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <label for="legalRepresentative">Representante Legal</label>
+              <div class="input-group">
+                <input formControlName="legalRepresentative" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-sm-7">
+              <label for="email">Email</label>
+              <div class="input-group">
+                <input 
+                formControlName="email"
+                class="form-control"
+                type="email">
+              </div>
+            </div>
+
+            <div class="col-sm-5">
+              <label for="phoneNumber">Tel</label>
+              <div class="input-group">
+                <input 
+                formControlName="phoneNumber"
+                class="form-control"
+                maxlength="15"
+                mask="(00) 00000-0000">
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <label for="registerStatus">Status</label>
+              <div class="input-group">
+                <input formControlName="registerStatus" class="form-control">
+              </div>
+            </div>
+
+          </div> 
+        </div>
+      </form>
+    </div> 
+    <div class="modal-footer">
+      <button 
+        type="button" 
+        class="btn btn-outline-dark" 
+        (click)="modal.close(); saveClient()"
+        [disabled]="!clientForm.valid"
+        >
+        Salvar
+      </button>
+    </div>
+  </ng-template>
+
+</div>
